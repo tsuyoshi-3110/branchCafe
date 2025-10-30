@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://branch-cafe.shop
+
+# Sitemaps
+Sitemap: https://branch-cafe.shop/sitemap.xml
