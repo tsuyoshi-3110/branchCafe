@@ -102,6 +102,7 @@ export default function RootLayout({
       <head>
         <link rel="preload" as="image" href="/ogpLogo.png" type="image/png" />
         {/* TODO: Search Console の site verification は発行後に追加 */}
+        <meta name="google-site-verification" content="gyA6VjQKmgmsL94Hk01Na7cQ56DKCK3TyGeiAykkvWU" />
       </head>
 
       {/* ✅ フッターを下に張り付けるために flex レイアウト */}
