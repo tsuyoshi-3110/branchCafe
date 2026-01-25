@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ScrollUpCTA from "@/components/ScrollUpCTA";
 import { useUILang, type UILang } from "@/lib/atoms/uiLangAtom";
+import { CalendarDays } from "lucide-react";
 
 type T = {
   cta: string;
@@ -15,6 +16,9 @@ type T = {
   siteAlt: string;
   areaLinkText: string;
   rights: string;
+
+  // ★ 追加：カレンダー
+  calendarAlt: string;
 };
 
 const STRINGS: Record<UILang, T> = {
@@ -27,6 +31,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch（ブランチ）",
     areaLinkText: "東淀川区の家事代行・ハウスクリーニング",
     rights: "All rights reserved.",
+    calendarAlt: "予約カレンダー",
   },
   en: {
     cta: "Contact us",
@@ -37,6 +42,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Official)",
     areaLinkText: "Housekeeping & house cleaning in Higashiyodogawa",
     rights: "All rights reserved.",
+    calendarAlt: "Booking calendar",
   },
   zh: {
     cta: "免费咨询・联系",
@@ -47,6 +53,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch 官方网站",
     areaLinkText: "东淀川区的家政与家居清洁",
     rights: "版权所有。",
+    calendarAlt: "预约日历",
   },
   "zh-TW": {
     cta: "免費諮詢・聯絡我們",
@@ -57,6 +64,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch 官方網站",
     areaLinkText: "東淀川區的家事服務・居家清潔",
     rights: "版權所有。",
+    calendarAlt: "預約行事曆",
   },
   ko: {
     cta: "문의하기",
@@ -67,6 +75,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch 공식",
     areaLinkText: "히가시요도가와구 가사도우미·하우스 클리닝",
     rights: "판권 소유.",
+    calendarAlt: "예약 캘린더",
   },
   fr: {
     cta: "Nous contacter",
@@ -77,6 +86,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Officiel)",
     areaLinkText: "Ménage & nettoyage domestique à Higashiyodogawa",
     rights: "Tous droits réservés.",
+    calendarAlt: "Calendrier de réservation",
   },
   es: {
     cta: "Contáctanos",
@@ -87,6 +97,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Oficial)",
     areaLinkText: "Servicio doméstico y limpieza en Higashiyodogawa",
     rights: "Todos los derechos reservados.",
+    calendarAlt: "Calendario de reservas",
   },
   de: {
     cta: "Kontakt",
@@ -97,6 +108,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Offiziell)",
     areaLinkText: "Haushaltshilfe & Hausreinigung in Higashiyodogawa",
     rights: "Alle Rechte vorbehalten.",
+    calendarAlt: "Buchungskalender",
   },
   pt: {
     cta: "Fale conosco",
@@ -107,6 +119,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Oficial)",
     areaLinkText: "Serviços domésticos e limpeza em Higashiyodogawa",
     rights: "Todos os direitos reservados.",
+    calendarAlt: "Calendário de reservas",
   },
   it: {
     cta: "Contattaci",
@@ -117,6 +130,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Ufficiale)",
     areaLinkText: "Servizi domestici e pulizie a Higashiyodogawa",
     rights: "Tutti i diritti riservati.",
+    calendarAlt: "Calendario prenotazioni",
   },
   ru: {
     cta: "Связаться с нами",
@@ -127,6 +141,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Официальный)",
     areaLinkText: "Бытовые услуги и уборка в районе Хигасийодогава",
     rights: "Все права защищены.",
+    calendarAlt: "Календарь бронирования",
   },
   th: {
     cta: "ติดต่อเรา",
@@ -137,6 +152,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (ทางการ)",
     areaLinkText: "แม่บ้านและทำความสะอาดในเขตฮิกาชิโยโดกาวะ",
     rights: "สงวนลิขสิทธิ์",
+    calendarAlt: "ปฏิทินการจอง",
   },
   vi: {
     cta: "Liên hệ",
@@ -147,6 +163,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (Chính thức)",
     areaLinkText: "Dọn dẹp & giúp việc nhà tại Higashiyodogawa",
     rights: "Mọi quyền được bảo lưu.",
+    calendarAlt: "Lịch đặt chỗ",
   },
   id: {
     cta: "Hubungi kami",
@@ -158,6 +175,7 @@ const STRINGS: Record<UILang, T> = {
     areaLinkText:
       "Jasa bersih-bersih & asisten rumah tangga di Higashiyodogawa",
     rights: "Hak cipta dilindungi.",
+    calendarAlt: "Kalender pemesanan",
   },
   hi: {
     cta: "संपर्क करें",
@@ -168,6 +186,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (आधिकारिक)",
     areaLinkText: "हिगाशी-योदोगावा में हाउसकीपिंग व हाउस क्लीनिंग",
     rights: "सर्वाधिकार सुरक्षित।",
+    calendarAlt: "बुकिंग कैलेंडर",
   },
   ar: {
     cta: "اتصل بنا",
@@ -178,6 +197,7 @@ const STRINGS: Record<UILang, T> = {
     siteAlt: "Branch (رسمي)",
     areaLinkText: "خدمات التدبير المنزلي وتنظيف المنازل في هيغاشي يودوغاوا",
     rights: "جميع الحقوق محفوظة.",
+    calendarAlt: "تقويم الحجز",
   },
 };
 
@@ -188,10 +208,14 @@ export default function Footer() {
   const dir: "rtl" | "ltr" = lang === "ar" ? "rtl" : "ltr";
   const iconSize = 48;
 
+  // ★ 追加：GoogleカレンダーURL
+  const calendarUrl =
+    "https://calendar.google.com/calendar/embed?src=branch.cafe3tenma%40gmail.com&ctz=Asia%2FTokyo";
+
   return (
     <footer
       dir={dir}
-      className="relative z-20 mt-10 border-t bg-white/30 text-sm text-white text-outline backdrop-blur supports-[backdrop-filter]:bg-white/40"
+      className="relative z-20 mt-10 border-t bg-white/30 text-sm text-white text-outline backdrop-blur supports-backdrop-filter:bg-white/40"
     >
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="flex flex-col items-center gap-6 text-center">
@@ -239,6 +263,22 @@ export default function Footer() {
               />
             </a>
           </nav>
+
+          {/* ★ 追加：カレンダーアイコン（外部ライブラリ：lucide-react） */}
+          <a
+            href={calendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.calendarAlt}
+            className="transition-opacity hover:opacity-80"
+          >
+            <CalendarDays
+              width={iconSize}
+              height={iconSize}
+              className="text-white"
+              aria-hidden="true"
+            />
+          </a>
 
           {/* エリアリンク（内部遷移は <Link> を使用） */}
           <div className="space-y-1 text-xs leading-tight">
