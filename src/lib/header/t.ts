@@ -37,7 +37,7 @@ export const T: Record<UILang, Record<Keys, string>> = {
     areas: "対応エリア",
     stores: "店舗一覧",
     story: "私たちの思い",
-    blog: "ブログ",
+    blog: "取材はこちら",
     news: "お知らせ",
     company: "会社概要",
     reserve: "ご予約はこちら",

@@ -52,7 +52,7 @@ function StripeConnectCard() {
     try {
       setConnectStatus("unknown");
       const res = await fetch(
-        `/api/sellers/connect-status?siteKey=${encodeURIComponent(sellerId)}`
+        `/api/sellers/connect-status?siteKey=${encodeURIComponent(sellerId)}`,
       );
       const data: any = await res.json();
       if (!res.ok) throw new Error(data?.error || "failed");
@@ -122,8 +122,8 @@ function StripeConnectCard() {
             {loading
               ? "開始中..."
               : connectStatus === "notStarted"
-              ? "Stripe連携を開始"
-              : "Stripe連携を続行"}
+                ? "Stripe連携を開始"
+                : "Stripe連携を続行"}
           </Button>
 
           <Button
@@ -263,8 +263,8 @@ function I18nSettingsCard({
     a.key === "ja"
       ? -1
       : b.key === "ja"
-      ? 1
-      : String(a.key).localeCompare(String(b.key))
+        ? 1
+        : String(a.key).localeCompare(String(b.key)),
   );
 
   const getJpLabel = (key: string) => {
@@ -466,8 +466,8 @@ function BusinessHoursCard() {
           ranges: closed
             ? []
             : bh.days[day].ranges.length
-            ? bh.days[day].ranges
-            : [{ start: "09:00", end: "18:00" }],
+              ? bh.days[day].ranges
+              : [{ start: "09:00", end: "18:00" }],
         },
       },
     };
@@ -479,7 +479,7 @@ function BusinessHoursCard() {
     day: DayKey,
     idx: number,
     key: "start" | "end",
-    val: string
+    val: string,
   ) => {
     const ranges = [...(bh.days[day].ranges || [])];
     while (ranges.length <= idx) ranges.push({ start: "09:00", end: "18:00" });
@@ -707,7 +707,7 @@ const MENU_ITEMS: { key: string; label: string }[] = [
   { key: "areas", label: "対応エリア" },
   { key: "stores", label: "店舗一覧" },
   { key: "story", label: "私たちの思い" },
-  { key: "blog", label: "ブログ" },
+  { key: "blog", label: "取材はこちら" },
   { key: "news", label: "お知らせ" },
   { key: "company", label: "会社概要" },
   { key: "contact", label: "無料相談・お問合せ" },
@@ -738,7 +738,7 @@ const TOP_DISPLAYABLE_ITEMS = [
 export default function LoginPage() {
   const [theme, setTheme] = useState<ThemeKey>("brandA");
   const [visibleKeys, setVisibleKeys] = useState<string[]>(
-    MENU_ITEMS.map((m) => m.key)
+    MENU_ITEMS.map((m) => m.key),
   );
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
   const [user, setUser] = useState<User | null>(null);
@@ -771,7 +771,7 @@ export default function LoginPage() {
   // Google Maps API Key
   const mapsApiKey = useMemo(
     () => process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
-    []
+    [],
   );
 
   /* ---------------- 初期ロード（サイト設定） ---------------- */
@@ -799,7 +799,7 @@ export default function LoginPage() {
         // 常に ja は含める
         setUiLangs(() => {
           const s = new Set<UILang>(
-            langs.length ? langs : (["ja"] as UILang[])
+            langs.length ? langs : (["ja"] as UILang[]),
           );
           s.add("ja" as UILang);
           return Array.from(s);
@@ -823,7 +823,7 @@ export default function LoginPage() {
           if (!prev.includes("hours")) return prev;
           const next = prev.filter((k) => k !== "hours");
           setDoc(META_REF, { activeMenuKeys: next }, { merge: true }).catch(
-            console.error
+            console.error,
           );
           return next;
         });
@@ -837,7 +837,7 @@ export default function LoginPage() {
     (async () => {
       try {
         const res = await fetch(
-          `/api/sellers/connect-status?siteKey=${encodeURIComponent(SITE_KEY)}`
+          `/api/sellers/connect-status?siteKey=${encodeURIComponent(SITE_KEY)}`,
         );
         const data: any = await res.json();
         const completed = data?.status === "completed";
@@ -846,13 +846,13 @@ export default function LoginPage() {
         // 未連携なら候補UIからショップ & カートを一時的に隠す（Firestoreには書かない）
         if (!completed) {
           setVisibleKeys((prev) =>
-            prev.filter((k) => k !== "productsEC" && k !== "cart")
+            prev.filter((k) => k !== "productsEC" && k !== "cart"),
           );
         }
       } catch {
         setHasConnect(false);
         setVisibleKeys((prev) =>
-          prev.filter((k) => k !== "productsEC" && k !== "cart")
+          prev.filter((k) => k !== "productsEC" && k !== "cart"),
         );
       }
     })();
@@ -936,7 +936,7 @@ export default function LoginPage() {
       const next = prev.filter((k) => newKeys.includes(k));
       if (next.length !== prev.length) {
         setDoc(META_REF, { activeMenuKeys: next }, { merge: true }).catch(
-          console.error
+          console.error,
         );
       }
       return next;
@@ -954,7 +954,7 @@ export default function LoginPage() {
     await setDoc(
       META_REF,
       { i18n: { enabled: next, langs: uiLangs } },
-      { merge: true }
+      { merge: true },
     );
   };
 
@@ -972,7 +972,7 @@ export default function LoginPage() {
       setDoc(
         META_REF,
         { i18n: { enabled: i18nEnabled, langs: next } },
-        { merge: true }
+        { merge: true },
       ).catch(console.error);
       return next;
     });
@@ -980,14 +980,14 @@ export default function LoginPage() {
 
   const handleSelectAllLangs = async () => {
     const all = Array.from(
-      new Set<UILang>(["ja", ...(LANGS.map((l: any) => l.key) as UILang[])])
+      new Set<UILang>(["ja", ...(LANGS.map((l: any) => l.key) as UILang[])]),
     );
     const next = all as UILang[];
     setUiLangs(next);
     await setDoc(
       META_REF,
       { i18n: { enabled: i18nEnabled, langs: next } },
-      { merge: true }
+      { merge: true },
     );
   };
 
@@ -997,7 +997,7 @@ export default function LoginPage() {
     await setDoc(
       META_REF,
       { i18n: { enabled: i18nEnabled, langs: next } },
-      { merge: true }
+      { merge: true },
     );
   };
 
@@ -1134,10 +1134,10 @@ export default function LoginPage() {
                             } catch (err) {
                               console.error(
                                 "Failed to toggle onboardingCompleted:",
-                                err
+                                err,
                               );
                               alert(
-                                "販売状態の更新に失敗しました。もう一度お試しください。"
+                                "販売状態の更新に失敗しました。もう一度お試しください。",
                               );
                               return;
                             }
@@ -1172,7 +1172,7 @@ export default function LoginPage() {
                     <div className="space-y-1">
                       {MENU_ITEMS.filter(
                         (item) =>
-                          !["productsEC", "cart", "hours"].includes(item.key) // ← 追加
+                          !["productsEC", "cart", "hours"].includes(item.key), // ← 追加
                       ).map((item) => (
                         <label
                           key={item.key}
@@ -1199,7 +1199,7 @@ export default function LoginPage() {
                     <SectionTitle>トップに表示するもの</SectionTitle>
                     <div className="space-y-1">
                       {MENU_ITEMS.filter((item) =>
-                        TOP_DISPLAYABLE_ITEMS.includes(item.key)
+                        TOP_DISPLAYABLE_ITEMS.includes(item.key),
                       ).map((item) => {
                         const isHours = item.key === "hours";
                         const disabled = isHours

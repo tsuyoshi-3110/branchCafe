@@ -31,7 +31,7 @@ import { UILang, useUILang } from "@/lib/langsState";
 const PAGE_SIZE = 20;
 
 const BLOG_T: Record<UILang, string> = {
-  ja: "ブログ",
+  ja: "取材はこちら",
   en: "Blog",
   zh: "博客",
   "zh-TW": "部落格",
@@ -82,7 +82,7 @@ export default function BlogListPage() {
         const base = query(
           col,
           orderBy("createdAt", "desc"),
-          fbLimit(PAGE_SIZE)
+          fbLimit(PAGE_SIZE),
         );
 
         const q = cursor
@@ -90,7 +90,7 @@ export default function BlogListPage() {
               col,
               orderBy("createdAt", "desc"),
               startAfter(cursor),
-              fbLimit(PAGE_SIZE)
+              fbLimit(PAGE_SIZE),
             )
           : base;
 
@@ -113,7 +113,7 @@ export default function BlogListPage() {
         setLoading(false);
       }
     },
-    [cursor, loading, noMore]
+    [cursor, loading, noMore],
   );
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export default function BlogListPage() {
           fetchPage(false);
         }
       },
-      { rootMargin: "200px 0px" }
+      { rootMargin: "200px 0px" },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -187,7 +187,7 @@ export default function BlogListPage() {
         <p
           className={clsx(
             "text-sm",
-            isDark ? "text-white/70" : "text-muted-foreground"
+            isDark ? "text-white/70" : "text-muted-foreground",
           )}
         >
           まだ投稿がありません。
@@ -209,7 +209,7 @@ export default function BlogListPage() {
           <div
             className={clsx(
               "flex justify-center py-4 text-sm",
-              isDark ? "text-white/70" : "text-muted-foreground"
+              isDark ? "text-white/70" : "text-muted-foreground",
             )}
           >
             {loading && "読み込み中…"}
